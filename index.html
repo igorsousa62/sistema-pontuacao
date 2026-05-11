@@ -3,53 +3,154 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minhas Turmas - Pontuação</title>
+    <title>Controle de Pontuação</title>
     <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --secondary: #f97316;
+            --secondary-hover: #ea580c;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --card-bg: #ffffff;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f7f6;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
             margin: 0;
+            padding: 20px;
         }
+
         .container {
-            background-color: #fff;
-            padding: 2rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
-            text-align: center;
+            max-width: 600px;
         }
-        h1 { color: #333; margin-bottom: 1.5rem; }
-        .turma-list { list-style: none; padding: 0; }
-        .turma-item { margin-bottom: 1rem; }
+
+        h1 {
+            color: var(--text);
+            margin-bottom: 2rem;
+            font-size: 1.875rem;
+            font-weight: 800;
+            text-align: center;
+            letter-spacing: -0.025em;
+        }
+
+        .turma-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .turma-item {
+            width: 100%;
+        }
+
         .turma-link {
-            display: block;
-            padding: 15px;
-            background-color: #3498db;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 1rem 1.5rem;
+            background-color: var(--primary);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            font-size: 1.1rem;
-            transition: background-color 0.3s;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            line-height: 1.4;
         }
-        .turma-link:hover { background-color: #2980b9; }
+
+        .turma-link:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .regras-link {
+            background-color: var(--secondary);
+            margin-top: 1.5rem;
+            justify-content: center;
+        }
+
+        .regras-link:hover {
+            background-color: var(--secondary-hover);
+        }
+
+        .icon {
+            margin-right: 15px;
+            font-size: 1.4rem;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.5rem;
+            }
+            h1 {
+                font-size: 1.5rem;
+            }
+            .turma-link {
+                font-size: 0.95rem;
+                padding: 0.8rem 1rem;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Minhas Turmas</h1>
+        <h1>Controle de Pontuação</h1>
         <ul class="turma-list">
-            <li class="turma-item"><a href="turmas/turma_a.html" class="turma-link">3° A - Interação Humano Computador - Sistemas de Informação</a></li>
-            <li class="turma-item"><a href="turmas/turma_b.html" class="turma-link">3° B - Interação Humano Computador - Sistemas de Informação</a></li>
-            <li class="turma-item"><a href="turmas/turma_b.html" class="turma-link">3° A - Modelagem de Software - Sistemas de Informação</a></li>
-            <li class="turma-item"><a href="turmas/turma_b.html" class="turma-link">3° B - Modelagem de Software - Sistemas de Informação</a></li>
-            <li class="turma-item"><a href="turmas/turma_b.html" class="turma-link">1° A - Tecnologia da Informação - Engenharia Agrônomica</a></li>
-            <li class="turma-item"><a href="regras.html" class="turma-link" style="background-color: #e67e22;">Regras de Pontuação</a></li>
-            <!-- Adicione mais turmas aqui seguindo o mesmo padrão -->
+            <li class="turma-item">
+                <a href="turmas/turma_a.html" class="turma-link">
+                    <span class="icon">💻</span>
+                    3° A - Interação Humano Computador - Sistemas de Informação
+                </a>
+            </li>
+            <li class="turma-item">
+                <a href="turmas/turma_b.html" class="turma-link">
+                    <span class="icon">💻</span>
+                    3° B - Interação Humano Computador - Sistemas de Informação
+                </a>
+            </li>
+            <li class="turma-item">
+                <a href="turmas/turma_b.html" class="turma-link">
+                    <span class="icon">💻</span>
+                    3° A - Modelagem de Software - Sistemas de Informação
+                </a>
+            </li>
+            <li class="turma-item">
+                <a href="turmas/turma_b.html" class="turma-link">
+                    <span class="icon">💻</span>
+                    3° B - Modelagem de Software - Sistemas de Informação
+                </a>
+            </li>
+            <li class="turma-item">
+                <a href="turmas/turma_b.html" class="turma-link">
+                    <span class="icon">🌱</span>
+                    1° A - Tecnologia da Informação - Engenharia Agronômica
+                </a>
+            </li>
+            <li class="turma-item">
+                <a href="regras.html" class="turma-link regras-link">
+                    <span class="icon">⚖️</span>
+                    Regras de Pontuação
+                </a>
+            </li>
         </ul>
     </div>
 </body>
