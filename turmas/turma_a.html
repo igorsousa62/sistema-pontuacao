@@ -3,35 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Turma A - Pontuação</title>
+    <title>Turma - Controle de Pontuação</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background-color: #fff; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); width: 100%; max-width: 450px; }
-        h1 { text-align: center; color: #333; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; }
-        th { background-color: #f8f9fa; color: #555; }
-        .score { font-weight: bold; color: #2c3e50; text-align: right; }
-        .btn-voltar { display: inline-block; margin-top: 20px; padding: 8px 15px; background-color: #95a5a6; color: white; text-decoration: none; border-radius: 5px; font-size: 0.9rem; }
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f8fafc;
+            --text: #1e293b;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            color: var(--text);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 800;
+            text-align: center;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn-sort {
+            padding: 8px 12px;
+            background-color: #f1f5f9;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            transition: all 0.2s;
+        }
+
+        .btn-sort:hover {
+            background-color: #e2e8f0;
+            color: var(--text);
+        }
+
+        .btn-sort.active {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #64748b;
+            border-bottom: 2px solid var(--border);
+        }
+
+        td {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .score {
+            font-weight: 700;
+            color: var(--primary);
+            text-align: right;
+        }
+
+        .medal {
+            margin-right: 8px;
+            font-size: 1.2rem;
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        .btn-voltar {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 10px 20px;
+            background-color: #64748b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        .btn-voltar:hover {
+            background-color: #475569;
+        }
+
+        @media (max-width: 480px) {
+            .container { padding: 1.5rem; }
+            td, th { padding: 10px 8px; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Turma A</h1>
-        <table>
+        <h1 id="titulo-turma">Turma A</h1>
+        
+        <div class="controls">
+            <button class="btn-sort" onclick="ordenar('nome')" id="btn-nome">Nome A-Z</button>
+            <button class="btn-sort" onclick="ordenar('ponto')" id="btn-ponto">Maior Pontuação</button>
+        </div>
+
+        <table id="tabela-alunos">
             <thead>
                 <tr>
                     <th>Aluno</th>
                     <th style="text-align: right;">Pontos</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr><td>Ana Silva</td><td class="score">95</td></tr>
-                <tr><td>Bruno Santos</td><td class="score">88</td></tr>
-                <tr><td>Carla Oliveira</td><td class="score">92</td></tr>
+            <tbody id="corpo-tabela">
+                <tr data-nome="Elena Costa"><td>Elena Costa</td><td class="score">100</td></tr>
+                <tr data-nome="Ana Silva"><td>Ana Silva</td><td class="score">95</td></tr>
+                <tr data-nome="Carla Oliveira"><td>Carla Oliveira</td><td class="score">92</td></tr>
+                <tr data-nome="Bruno Santos"><td>Bruno Santos</td><td class="score">88</td></tr>
+                <tr data-nome="Fábio Junior"><td>Fábio Junior</td><td class="score">82</td></tr>
+                <tr data-nome="Diego Lima"><td>Diego Lima</td><td class="score">75</td></tr>
             </tbody>
         </table>
-        <a href="../index.html" class="btn-voltar">Voltar</a>
+        
+        <a href="../index.html" class="btn-voltar">← Voltar ao Início</a>
     </div>
+
+    <script>
+        function ordenar(criterio) {
+            const tbody = document.getElementById('corpo-tabela');
+            const rows = Array.from(tbody.querySelectorAll('tr'));
+            
+            document.querySelectorAll('.btn-sort').forEach(btn => btn.classList.remove('active'));
+            
+            if (criterio === 'nome') {
+                document.getElementById('btn-nome').classList.add('active');
+                rows.sort((a, b) => {
+                    const nomeA = a.getAttribute('data-nome').toLowerCase();
+                    const nomeB = b.getAttribute('data-nome').toLowerCase();
+                    return nomeA.localeCompare(nomeB);
+                });
+            } else {
+                document.getElementById('btn-ponto').classList.add('active');
+                rows.sort((a, b) => {
+                    const pontoA = parseInt(a.cells[1].innerText);
+                    const pontoB = parseInt(b.cells[1].innerText);
+                    return pontoB - pontoA;
+                });
+            }
+            
+            rows.forEach((row, index) => {
+                const nomeCell = row.cells[0];
+                const nomeOriginal = row.getAttribute('data-nome');
+                
+                nomeCell.innerHTML = '';
+            
+                if (criterio === 'ponto') {
+                    if (index === 0) nomeCell.innerHTML = '<span class="medal">🥇</span>';
+                    else if (index === 1) nomeCell.innerHTML = '<span class="medal">🥈</span>';
+                    else if (index === 2) nomeCell.innerHTML = '<span class="medal">🥉</span>';
+                }
+                
+                // Adiciona o nome de volta
+                nomeCell.innerHTML += nomeOriginal;
+                
+                tbody.appendChild(row);
+            });
+        }
+
+        window.onload = () => ordenar('ponto');
+    </script>
 </body>
 </html>
